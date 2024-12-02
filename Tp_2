@@ -1,65 +1,42 @@
-
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 char* ChargerChaine(int N) {
-    char* chaine = (char*)malloc((N+1) * sizeof(char)); // نخصص مساحة كافية للسلسلة ونول
+    char *chaine = (char *)malloc(N * sizeof(char));
     if (chaine == NULL) {
-        printf("Erreur d'allocation mémoire\n");
-        exit(1);
+        printf("Erreur d'allocation mémoire.\n");
+        return NULL;
     }
-    fgets(chaine, N+1, stdin); // نقرأ السلسلة من الإدخال
-    chaine[strcspn(chaine, "\n")] = '\0'; // نزيل حرف النهاية إذا كان موجوداً
+    printf("Entrez une chaîne de caractères : ");
+    scanf(" %[^\n]", chaine); // قراءة السلسلة
     return chaine;
 }
-
-int Longueur(char* ch) {
+  int Longueur(char *ch)
+    int longueur = 0;
+    while (ch[longueur] != '\0') {
+        longueur++;
+    }
+    return longueur;
+  }   
+ void ChargerTab(char *p, char Tab[]) {
     int i = 0;
-    while (ch[i] != '\0') {
+    while (p[i] != '\0') {
+        Tab[i] = p[i];
         i++;
     }
-    return i;
+    Tab[i] = '\0'; // إضافة محرف الإنهاء
 }
-
-void ChargerTab(char* p, char Tab[]) {
-    int i;
-    for (i = 0; p[i] != '\0'; i++) {
-        Tab[i] = p[i];
+void InverserTab(char Tab[], char T[], int m) {
+    for (int i = 0; i < m; i++) {
+        T[i] = Tab[m - i - 1];
     }
-    Tab[i] = '\0';
+    T[m] = '\0'; // إضافة محرف الإنهاء
 }
-
-void InverserTab(char Tab[], char T[], int n) {
-    int i;
-    for (i = 0; i < n; i++) {
-        T[i] = Tab[n-i-1];
-    }
-    T[n] = '\0';
-}
-
-void AfficherTab(char Tab[], int m) {
-    int i;
-    for (i = 0; i < m; i++) {
+ void AfficherTab(char Tab[], int m) {
+    for (int i = 0; i < m; i++) {
         printf("%c", Tab[i]);
     }
     printf("\n");
+}   
+return 0;
 }
-
-int main() {
-    char *ch;
-    int n;
-    printf("Veuillez saisir la taille maximale de la chaine : ");
-    scanf("%d", &n);
-    ch = ChargerChaine(n);
-
-    int m = Longueur(ch);
-    char Tab[m+1], T[m+1];
-    charger Tab (ch,Tab);
-    printf("la chaine est :");
-    Afficher Tab (Tab,m);
-    Inverser Tab (Tab,T,m);
-    printf ("la chaine inversée est :");
-    Afficher Tab (T,m);
-    free(ch);
-    return 0;
